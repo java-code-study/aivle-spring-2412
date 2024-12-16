@@ -30,12 +30,9 @@ public class NewsController {
 
     @PostMapping("/create")
     public String createNews(NewsDto.Post post){
-        System.out.println(post);
         News n = mapper.newsPostDtoToNews(post);
-        System.out.println(n);
         newsRepository.save(n);
-        System.out.println(n);
-        return "redirect:/news/list";
+        return "redirect:/news/" + n.getNewsId();
     }
 
     @GetMapping("/{newsId}")

@@ -4,10 +4,11 @@
     <ul class="list-group">
         {{#newsList}}
         <li class="list-group-item">
-            <h4 class="mb-2">제목 : {{title}}</h4>
+            <h4 class="mb-2"><a href="/news/{{newsId}}">제목 : {{title}}</a></h4>
             <small class="text-muted">News ID : {{newsId}}</small>
         </li>
         {{/newsList}}
+        <a href="/news/new">Create News</a>
     </ul>
 </div>
 
