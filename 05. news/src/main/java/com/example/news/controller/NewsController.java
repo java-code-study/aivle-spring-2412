@@ -25,6 +25,14 @@ public class NewsController {
         News n = News.toEntity(post);
         System.out.println(n);
         newsRepository.save(n);
+        System.out.println(n);
+        return "";
+    }
+
+    //엔티티를 그대로 사용하는 예시
+    @PostMapping("/news/create2")
+    public String createNews(News news){
+        newsRepository.save(news);
         return "";
     }
 }
