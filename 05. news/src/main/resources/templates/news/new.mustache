@@ -1,0 +1,13 @@
+{{>layouts/header}}
+<form class="container" action="/news/create" method="post">
+    <div class="mb-3">
+        <label class="form-label">Title</label>
+        <input class="form-control" type="text" name="title">
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Content</label>
+        <textarea class="form-control" name="content" rows="5"></textarea>
+    </div>
+    <button class="btn btn-primary" type="submit">Submit</button>
+</form>
+{{>layouts/footer}}
