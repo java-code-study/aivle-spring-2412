@@ -1,0 +1,14 @@
+{{>layouts/header}}
+
+<div class="container mt-4">
+    <ul class="list-group">
+        {{#newsList}}
+        <li class="list-group-item">
+            <h4 class="mb-2">제목 : {{title}}</h4>
+            <small class="text-muted">News ID : {{newsId}}</small>
+        </li>
+        {{/newsList}}
+    </ul>
+</div>
+
+{{>layouts/footer}}

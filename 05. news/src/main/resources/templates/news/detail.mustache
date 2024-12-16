@@ -1,0 +1,14 @@
+{{>layouts/header}}
+
+<div class="container mt-4">
+    {{#news}}
+    <div class="blog-post mb-4">
+        <h2 class="blog-post-title"> {{title}} </h2>
+        <hr>
+        <p class="blog-post-content"> {{content}} </p>
+        <hr>
+    </div>
+    {{/news}}
+</div>
+
+{{>layouts/footer}}
