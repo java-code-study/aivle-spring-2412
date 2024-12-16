@@ -2,17 +2,20 @@ package com.example.news.controller;
 
 import com.example.news.domain.News;
 import com.example.news.dto.NewsDto;
+import com.example.news.mapper.NewsMapper;
 import com.example.news.repository.NewsRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
+@RequiredArgsConstructor
 public class NewsController {
 
-    @Autowired
-    private NewsRepository newsRepository;
+    private final NewsRepository newsRepository;
+    private final NewsMapper mapper;
 
     @GetMapping("/news/new")
     public String newArticleForm(){
@@ -22,7 +25,7 @@ public class NewsController {
     @PostMapping("/news/create")
     public String createNews(NewsDto.Post post){
         System.out.println(post);
-        News n = News.toEntity(post);
+        News n = mapper.newsPostDtoToNews(post);
         System.out.println(n);
         newsRepository.save(n);
         System.out.println(n);
