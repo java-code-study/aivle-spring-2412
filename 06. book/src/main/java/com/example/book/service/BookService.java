@@ -21,8 +21,7 @@ public class BookService {
     }
     //책을 업데이트(PUT)
     public Book updateBook(Long id, Book book) {
-        Book b = bookRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 책입니다."));
+        Book b = getBook(id);
         b.setTitle(book.getTitle());
         b.setSubTitle(book.getSubTitle());
         b.setAuthor(book.getAuthor());
@@ -30,18 +29,22 @@ public class BookService {
         b.setStatus(book.getStatus());
         return bookRepository.save(b);
     }
+
+    private Book getBook(Long id) {
+        return bookRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 책입니다."));
+    }
+
     //책을 업데이트(PATCH)
     public Book updateBook(Long id, Book.Status status) {
-        Book b = bookRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 책입니다."));
+        Book b = getBook(id);
         b.setStatus(status);
         return bookRepository.save(b);
     }
 
     //책을 삭제하고
     public void deleteBook(Long id) {
-        Book b = bookRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 책입니다."));
+        Book b = getBook(id);
         if(b.getStatus() == Book.Status.BORROWED) {
             throw new IllegalArgumentException("대출 중인 책은 삭제할 수 없습니다.");
         }
@@ -49,8 +52,7 @@ public class BookService {
     }
     //책을 조회하고(단건)
     public Book findBook(Long id) {
-        return bookRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 책입니다."));
+        return getBook(id);
     }
 
     //책을 조회하고(다건)
