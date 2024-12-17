@@ -1,0 +1,13 @@
+{{>layouts/header}}
+
+<div class="container mt-5 w-75 p-5 rounded-3 shadow">
+    <h3>에러가 발생했습니다.</h3>
+    <hr>
+    <div class="alert alert-danger" role="alert">
+        요청 경로 : {{path}}<br>
+        에러코드 : {{status}}<br>
+        에러 메시지: {{message}}<br>
+    </div>
+</div>
+
+{{>layouts/footer}}

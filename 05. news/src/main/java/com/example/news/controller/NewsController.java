@@ -9,9 +9,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -38,7 +40,7 @@ public class NewsController {
     @GetMapping("/{newsId}")
     public String getNews(@PathVariable("newsId") Long newsId, Model model){
         News news = newsRepository.findById(newsId)
-                .orElseThrow(() -> new IllegalArgumentException("해당 게시글이 없습니다."));
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "해당 게시글이 없습니다."));
         model.addAttribute("news", news);
         return "news/detail";
     }
@@ -65,7 +67,7 @@ public class NewsController {
     @GetMapping("/{newsId}/edit") //수정 페이지 요청에 대한 컨트롤러
     public String editNewsForm(@PathVariable("newsId") Long newsId, Model model) {
         News news = newsRepository.findById(newsId)
-                .orElseThrow(() -> new IllegalArgumentException("해당 뉴스가 존재하지 않습니다."));
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "해당 게시글이 없습니다."));
         model.addAttribute("news", news);
         return "news/edit";
     }
@@ -73,7 +75,7 @@ public class NewsController {
     @PostMapping("/{newsId}/update")
     public String editNews(@PathVariable("newsId") Long newsId, NewsDto.Patch patch){
         News news = newsRepository.findById(newsId)
-                .orElseThrow(() -> new IllegalArgumentException("해당 뉴스가 존재하지 않습니다."));
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "해당 게시글이 없습니다."));
         news.setTitle(patch.getTitle());
         news.setContent(patch.getContent());
         newsRepository.save(news);
