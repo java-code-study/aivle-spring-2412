@@ -6,6 +6,8 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 @Transactional
@@ -37,5 +39,23 @@ public class BookService {
     }
 
     //책을 삭제하고
-    //책을 조회하고
+    public void deleteBook(Long id) {
+        Book b = bookRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 책입니다."));
+        if(b.getStatus() == Book.Status.BORROWED) {
+            throw new IllegalArgumentException("대출 중인 책은 삭제할 수 없습니다.");
+        }
+        bookRepository.delete(b);
+    }
+    //책을 조회하고(단건)
+    public Book findBook(Long id) {
+        return bookRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 책입니다."));
+    }
+
+    //책을 조회하고(다건)
+    public List<Book> findBooks() {
+        return bookRepository.findAll();
+    }
+
 }
