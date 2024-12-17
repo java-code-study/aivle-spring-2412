@@ -32,6 +32,20 @@ public class BookController {
         return bookService.insertBook(book);
     }
     //PUT
+    @PutMapping("/{bookId}")
+    public Book updateBook(
+            @PathVariable("bookId") Long id, @RequestBody Book book){
+        return bookService.updateBook(id, book);
+    }
     //PATCH
+    @PatchMapping("/{bookId}")
+    public Book updateBookStatus(
+            @PathVariable("bookId") Long id, @RequestBody Book book){
+        return bookService.updateBook(id, book.getStatus());
+    }
     //DELETE
+    @DeleteMapping("/{bookId}")
+    public void deleteBook(@PathVariable("bookId") Long id) {
+        bookService.deleteBook(id);
+    }
 }
