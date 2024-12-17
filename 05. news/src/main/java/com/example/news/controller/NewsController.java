@@ -56,6 +56,19 @@ public class NewsController {
         model.addAttribute("hasPrev", newsPage.hasPrevious());
         return "news/list";
     }
+    @GetMapping("/{newsId}/delete")
+    public String deleteNews(@PathVariable("newsId") Long newsId){
+        newsRepository.deleteById(newsId);
+        return "redirect:/news/list";
+    }
+
+    @GetMapping("/{newsId}/edit")
+    public String editNewsForm(@PathVariable("newsId") Long newsId, Model model) {
+        News news = newsRepository.findById(newsId)
+                .orElseThrow(() -> new IllegalArgumentException("해당 뉴스가 존재하지 않습니다."));
+        model.addAttribute("news", news);
+        return "news/edit";
+    }
 
     //엔티티를 그대로 사용하는 예시
     @PostMapping("/create2")

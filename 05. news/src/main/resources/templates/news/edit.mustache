@@ -1,0 +1,17 @@
+{{>layouts/header}}
+{{#news}}
+<form class="container" action="/news/{{newsId}}/update" method="post">
+    <input type="hidden" name="newsId" value="{{newsId}}">
+    <div class="mb-3">
+        <label class="form-label">Title</label>
+        <input class="form-control" type="text" name="title" value="{{title}}">
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Content</label>
+        <textarea class="form-control" name="content" rows="5">{{content}}</textarea>
+    </div>
+    <button class="btn btn-primary" type="submit">Submit</button>
+    <a href="/news/{{newsId}}" class="btn btn-danger">Cancel</a>
+</form>
+{{/news}}
+{{>layouts/footer}}
