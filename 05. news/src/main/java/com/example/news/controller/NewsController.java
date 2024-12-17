@@ -62,13 +62,25 @@ public class NewsController {
         return "redirect:/news/list";
     }
 
-    @GetMapping("/{newsId}/edit")
+    @GetMapping("/{newsId}/edit") //수정 페이지 요청에 대한 컨트롤러
     public String editNewsForm(@PathVariable("newsId") Long newsId, Model model) {
         News news = newsRepository.findById(newsId)
                 .orElseThrow(() -> new IllegalArgumentException("해당 뉴스가 존재하지 않습니다."));
         model.addAttribute("news", news);
         return "news/edit";
     }
+
+    @PostMapping("/{newsId}/update")
+    public String editNews(@PathVariable("newsId") Long newsId, NewsDto.Patch patch){
+        News news = newsRepository.findById(newsId)
+                .orElseThrow(() -> new IllegalArgumentException("해당 뉴스가 존재하지 않습니다."));
+        news.setTitle(patch.getTitle());
+        news.setContent(patch.getContent());
+        newsRepository.save(news);
+
+        return "redirect:/news/" + news.getNewsId();
+    }
+
 
     //엔티티를 그대로 사용하는 예시
     @PostMapping("/create2")
