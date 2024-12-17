@@ -2,13 +2,21 @@
 
 <div class="container mt-4">
     <ul class="list-group">
-        {{#newsList}}
+        {{#newsPage.content}}
         <li class="list-group-item">
             <h4 class="mb-2"><a href="/news/{{newsId}}">제목 : {{title}}</a></h4>
             <small class="text-muted">News ID : {{newsId}}</small>
         </li>
-        {{/newsList}}
+        {{/newsPage.content}}
         <a href="/news/new">Create News</a>
+        <ul class="pagination justify-content-center">
+            {{#hasPrev}}
+                <a class="page-link" href="?page={{prev}}">Previous</a>
+            {{/hasPrev}}
+            {{#hasNext}}
+                <a class="page-link" href="?page={{next}}">Next</a>
+            {{/hasNext}}
+        </ul>
     </ul>
 </div>
 
